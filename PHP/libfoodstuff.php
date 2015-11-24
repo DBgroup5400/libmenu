@@ -60,7 +60,7 @@ class Foodstuff extends db{
   public function GetFoodstuffNamefromID( $_ID ){
     $query = "SELECT Foodstuff_Name from Foodstuff.Foodstuff_List where Foodstuff_ID = '";
 
-    $result = $this->_db_throw_query( "Foodstuff_", $query.$_ID."';" );
+    $result = $this->_db_throw_query( "Foodstuff", $query.$_ID."';" );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
       return NULL;
