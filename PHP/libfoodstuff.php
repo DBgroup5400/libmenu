@@ -58,29 +58,29 @@ class Foodstuff extends db{
   /* public methods */
   /* method that get foodstuff name from id */
   public function GetFoodstuffNamefromID( $_ID ){
-    $query = "SELECT Foodstuff_Name from Foodstuff.Foodstuff_List where Foodstuff_ID = ";
+    $query = "SELECT Foodstuff_Name from Foodstuff.Foodstuff_List where Foodstuff_ID = '";
 
-    $result = $this->_db_throw_query( "Foodstuff_", $query.$_ID.";" );
+    $result = $this->_db_throw_query( "Foodstuff_", $query.$_ID."';" );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
       return NULL;
     }
 
     $records = mysqli_fetch_assoc( $result );
-    return records['Foodstuff_Name'];
+    return $records['Foodstuff_Name'];
   }
   /* method that get id from foodstuff name */
   public function GetIDfromFoodstuffName( $_FoodstuffName ){
-    $query = "SELECT Foodstuff_ID from Foodstuff.Foodstuff_List where Foodstuff_Name = ";
+    $query = "SELECT Foodstuff_ID from Foodstuff.Foodstuff_List where Foodstuff_Name = '";
 
-    $result = $this->_db_throw_query( "Foodstuff", $query.$_FoodstuffName.";" );
+    $result = $this->_db_throw_query( "Foodstuff", $query.$_FoodstuffName."';" );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
       return NULL;
     }
 
     $records = mysqli_fetch_assoc( $result );
-    return records['Foodstuff_ID'];
+    return $records['Foodstuff_ID'];
   }
   /* method that get big-category name from id */
   public function GetBigCategoryfromID( $_ID ){

@@ -3,11 +3,11 @@ require_once "libdb.php";
 require_once "libfoodstuff.php";
 
 class Menu extends Foodstuff{
-  /* protected propaties */
-  protected $_ganre;
-  protected $_method;
-  protected $_kind;
-  /* end of protected propaties*/
+  /* public propaties */
+  public $_ganre;
+  public $_method;
+  public $_kind;
+  /* end of public propaties*/
 
   /* constructor */
   public function __construct( $__host, $__user, $__passwd ){
@@ -56,7 +56,7 @@ class Menu extends Foodstuff{
     }
 
     $records = mysqli_fetch_assoc( $result );
-    return records['Menu_Name'];
+    return $records['Menu_Name'];
   }
   /* method that get id from menu name */
   public function GetIDfromMenuName( $_MenuName ){
@@ -69,7 +69,7 @@ class Menu extends Foodstuff{
     }
 
     $records = mysqli_fetch_assoc( $result );
-    return records['Menu_ID'];
+    return $records['Menu_ID'];
   }
   /* method that get ganre name from id */
   public function GetGanrefromID( $_ID ){
@@ -100,16 +100,8 @@ class Menu extends Foodstuff{
   /* method get foodstuff list*/
   public function GetFoodstuffListfromID( $_MenuID ){
     $return = array();
-    $query = "SELECT Menu_Name from Menu_List where Menu_ID = '".$_MenuID."';";
-
-    $result = $this->_db_throw_query( "Menu", $query );
-    if( !$result ){
-      print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
-      return NULL;
-    }
-    $record = mysqli_fetch_assoc( $result );
-
-    $query = "SELECT * from".$record["Menu_Name"].";";
+    $query = "SELECT * from M".$_MenuID.";";
+    
     $result = $this->_db_throw_query( "Menu", $query );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
@@ -153,9 +145,13 @@ class Menu extends Foodstuff{
   public function GetMenuPrice( $_UserID, $_MenuID ){
     $sum = 0;
     $price = array();
-    $query = "SELECT * from ";
-    $result = $this->GetMenuNamefromID( $_MenuID );
+    $query = "SELECT * from M".$_MenuID.";";
 
+    $result = _db_throw_query( "Menu", $query );
+    if( !$result ){
+      print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
+      return NULL;
+    }
     while( ( $record = mysqli_fetch_assoc( $result ) ) != NULL ){
       $price = $this->GetFoodstuffPrice( $_UserID, $record["Foodstuff_ID"] );
       $sum += ($price[0]*$record["Amount"]);
