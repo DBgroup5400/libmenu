@@ -110,7 +110,7 @@ class Menu extends Foodstuff{
     for( $i = 0; ( $record = mysqli_fetch_assoc( $result ) ) != NULL; $i++ ){
       $return[$i]["Name"] = $this->GetFoodstuffNamefromID( $record["Foodstuff_ID"] );
       $return[$i]["Amount"] = $record["Amount"];
-      $return[$i]["Unit"] = $record["Unit"];
+      $return[$i]["Unit"] = $record["U"];
     }
     if( $i == 0 )
       return NULL;
