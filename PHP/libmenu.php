@@ -149,7 +149,7 @@ class Menu extends Foodstuff{
     $price = array();
     $query = "SELECT * from M".$_MenuID.";";
 
-    $result = _db_throw_query( "Menu", $query );
+    $result = $this->_db_throw_query( "Menu", $query );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
       return NULL;

@@ -1,8 +1,9 @@
 <?php
-// require_once "food0.1.php"
 require_once "libdb.php";
+require_once "libcity.php";
 
 class Foodstuff extends db{
+  private $_city;
   /* protected propaties */
   protected $_bigcategory;
   protected $_middlecategory;
@@ -14,6 +15,7 @@ class Foodstuff extends db{
 
     $this->_bigcategory = array();
     $this->_middlecategory = array();
+    $this->_city = new City( $__host, $__user, $__passwd );
 
     parent::__construct( $__host, $__user, $__passwd );
     // get category name
@@ -144,13 +146,29 @@ class Foodstuff extends db{
     if( $record != NULL ){
       $price = $record["Price"] / $record["Amount"];
     } else{
-      // $list = $_FoodstuffID;
-      // SerchPrice( 2.0, $_UserID, $list );
-      // $price = $list;
-      return NULL;
+      $list = $_FoodstuffID;
+      $this->_city->SerchPrice( 2.0, $_UserID, $list );
+      $price = $list;
     }
 
     return array( 0 => $price, 1 => $record["Unit"] );
+  }
+  /***************************************************
+    $User_ID    ユーザーID
+    $Foodstuff_ID 食材ID
+    $Price      食材価格
+    $Amount     食材料
+    $Date       購入日時 NULLなら登録時
+  ***************************************************/
+  public function RegPrice($User_ID,$Foodstuff_ID,$Price,  $Amount,$Date){
+    if($Date == NULL )
+      $Date = date('Y/m/t ');
+    $query = sprintf( "insert into U%06d VALUES('%s','%s','%s','%s')", $User_ID, $Foodstuff_ID, $Price, $Amount, $Date );
+    $result = $this->_db_throw_query( "Users_Geo", $query );
+    if( !$result ){
+      print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
+      return NULL;
+    }
   }
   /* end of public methods */
 
