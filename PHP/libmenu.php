@@ -101,7 +101,7 @@ class Menu extends Foodstuff{
   public function GetFoodstuffListfromID( $_MenuID ){
     $return = array();
     $query = "SELECT * from M".$_MenuID.";";
-    
+    print( "aaa" );
     $result = $this->_db_throw_query( "Menu", $query );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
@@ -113,7 +113,7 @@ class Menu extends Foodstuff{
       $return[$i]["Unit"] = $record["Amount"];
     }
     if( $i == 0 )
-      return -1;
+      return NULL;
 
     return $return;
   }
