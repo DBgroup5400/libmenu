@@ -25,7 +25,7 @@ class db{
       print( "Connection Failed.\n".mysqli_error( $this->_connection ) );
   }
   /* method that select database */
-  protected function _db_select( $_name ){
+  public function _db_select( $_name ){
     $dbselect = mysqli_select_db( $this->_connection, $_name );
     if( !$dbselect ){
       print( "Select Failed.\n".mysqli_error( $this->_connection ) );
@@ -39,7 +39,7 @@ class db{
     return $dbselect;
   }
   /* method that throw query to detabase */
-  protected function _db_throw_query( $_db_name, $_query ){
+  public function _db_throw_query( $_db_name, $_query ){
     $result = mysqli_query( $this->_connection, "SELECT database();" );
     $record = mysqli_fetch_assoc( $result );
     if( $record['database()'] != $_db_name ){
