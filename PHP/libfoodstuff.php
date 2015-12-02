@@ -139,19 +139,22 @@ class Foodstuff extends db{
   }
   /* method that get price of foodstuff */
   public function GetFoodstuffPrice( $_UserID, $_FoodstuffID ){
-    $query = "SELECT Foodstuff_ID, Price, Amount, max(Day) from U".$_UserID." where Foodstuff_ID = '".$_FoodstuffID."';";
+    $query = "SELECT Price, Mount from U".$_UserID." where ID = '".$_FoodstuffID."' Order by Day DESC;";
 
-    $result = _db_throw_query( "U".$_UserID, $query );
+    $result = $this->_db_throw_query( "Users_Geo", $query );
     $record = mysqli_fetch_assoc( $result );
+    while( mysqli_next_result( $this->_connection ) ){
+      mysqli_store_result( $this->_connection );
+    }
     if( $record != NULL ){
-      $price = $record["Price"] / $record["Amount"];
+      $price = $record["Price"] / $record["Mount"];
     } else{
       $list = $_FoodstuffID;
       $this->_city->SerchPrice( 2.0, $_UserID, $list );
       $price = $list;
     }
-
-    return array( 0 => $price, 1 => $record["Unit"] );
+    
+    return $price;
   }
   /***************************************************
     $User_ID    ユーザーID
@@ -160,10 +163,10 @@ class Foodstuff extends db{
     $Amount     食材料
     $Date       購入日時 NULLなら登録時
   ***************************************************/
-  public function RegPrice($User_ID,$Foodstuff_ID,$Price,  $Amount,$Date){
+  public function RegPrice($User_ID,$Foodstuff_ID,$Price,$Amount,$Date){
     if($Date == NULL )
       $Date = date('Y/m/t ');
-    $query = sprintf( "insert into U%06d VALUES('%s','%s','%s','%s')", $User_ID, $Foodstuff_ID, $Price, $Amount, $Date );
+    $query = sprintf( "insert into U%06s VALUES('%s','%s','%s','%s')", $User_ID, $Foodstuff_ID, $Price, $Amount, $Date );
     $result = $this->_db_throw_query( "Users_Geo", $query );
     if( !$result ){
       print( "Quely Failed.\n".mysqli_error( $this->_connection ) );
