@@ -139,18 +139,21 @@ class Foodstuff extends db{
   }
   /* method that get price of foodstuff */
   public function GetFoodstuffPrice( $_UserID, $_FoodstuffID ){
+    $record = NULL;
     $query = "SELECT Price, Mount from U".$_UserID." where ID = '".$_FoodstuffID."' Order by Day DESC;";
 
     $result = $this->_db_throw_query( "Users_Geo", $query );
-    $record = mysqli_fetch_assoc( $result );
-    while( mysqli_next_result( $this->_connection ) ){
-      mysqli_store_result( $this->_connection );
+    if( $result != NULL ){
+      $record = mysqli_fetch_assoc( $result );
+      while( mysqli_next_result( $this->_connection ) ){
+        mysqli_store_result( $this->_connection );
+      }
     }
     if( $record != NULL ){
       $price = $record["Price"] / $record["Mount"];
     } else{
-      $list = $_FoodstuffID;
-      $this->_city->SerchPrice( 2.0, $_UserID, $list );
+      $list = array( 0 => $_FoodstuffID, );
+      $list = $this->_city->SerchPrice( 2.0, $_UserID, $list );
       $price = $list;
     }
     
@@ -165,7 +168,8 @@ class Foodstuff extends db{
   ***************************************************/
   public function RegPrice($User_ID,$Foodstuff_ID,$Price,$Amount,$Date){
     if($Date == NULL )
-      $Date = date('Y-m-t ');
+      // $Date = date('Y-m-t H:i:s');
+      $Date = date('Y-m-t');
     $query = sprintf( "insert into U%06s VALUES('%s','%s','%s','%s')", $User_ID, $Foodstuff_ID, $Price, $Amount, $Date );
     $result = $this->_db_throw_query( "Users_Geo", $query );
     if( !$result ){
