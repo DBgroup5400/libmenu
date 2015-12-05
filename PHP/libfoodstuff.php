@@ -154,7 +154,7 @@ class Foodstuff extends db{
     } else{
       $list = array( 0 => $_FoodstuffID, );
       $list = $this->_city->SerchPrice( 2.0, $_UserID, $list );
-      $price = $list;
+      $price = $list[0];
     }
     
     return $price;
@@ -166,7 +166,7 @@ class Foodstuff extends db{
     $Amount     食材料
     $Date       購入日時 NULLなら登録時
   ***************************************************/
-  public function RegPrice($User_ID,$Foodstuff_ID,$Price,$Amount,$Date){
+  public function RegPrice( $User_ID, $Foodstuff_ID, $Price, $Amount, $Date ){
     if($Date == NULL )
       // $Date = date('Y-m-t H:i:s');
       $Date = date('Y-m-t');
