@@ -165,7 +165,7 @@ class Foodstuff extends db{
   ***************************************************/
   public function RegPrice($User_ID,$Foodstuff_ID,$Price,$Amount,$Date){
     if($Date == NULL )
-      $Date = date('Y/m/t ');
+      $Date = date('Y-m-t ');
     $query = sprintf( "insert into U%06s VALUES('%s','%s','%s','%s')", $User_ID, $Foodstuff_ID, $Price, $Amount, $Date );
     $result = $this->_db_throw_query( "Users_Geo", $query );
     if( !$result ){
