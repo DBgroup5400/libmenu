@@ -244,3 +244,4 @@ INSERT INTO Menu.Menu_List VALUES ( '532011000028' ,'ツナのサンドイッチ
 INSERT INTO Menu.Menu_List VALUES ( '532011000029' ,'ローストチキンサンド' );
 INSERT INTO Menu.Menu_List VALUES ( '532110000030' ,'ガーリックトースト' );
 INSERT INTO Menu.Menu_List VALUES ( '532110000031' ,'のりとバターのトースト' );
+INSERT INTO Menu.Menu_List VALUES ( '511410000016' ,'ごはん');

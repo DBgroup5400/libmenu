@@ -244,6 +244,8 @@ CREATE TABLE M532011000028 ( Foodstuff_ID char(9) NOT NULL , Amount varchar(10) 
 CREATE TABLE M532011000029 ( Foodstuff_ID char(9) NOT NULL , Amount varchar(10) , Unit varchar(10), PRIMARY KEY ( Foodstuff_ID ) );
 CREATE TABLE M532110000030 ( Foodstuff_ID char(9) NOT NULL , Amount varchar(10) , Unit varchar(10), PRIMARY KEY ( Foodstuff_ID ) );
 CREATE TABLE M532110000031 ( Foodstuff_ID char(9) NOT NULL , Amount varchar(10) , Unit varchar(10), PRIMARY KEY ( Foodstuff_ID ) );
+CREATE TABLE M511410000016 ( Foodstuff_ID char(9) NOT NULL , Amount varchar(10) , Unit varchar(10), PRIMARY KEY ( Foodstuff_ID ) );
+
 INSERT INTO Menu.M101000100001 VALUES ( '100000001', '5', '本' );
 
 INSERT INTO Menu.M101200100004 VALUES ( '100000001', '5', '本' );
@@ -1431,3 +1433,4 @@ INSERT INTO Menu.M532110000031 VALUES ( '531100017', '8', '枚' );
 INSERT INTO Menu.M532110000031 VALUES ( '140000107', '4', '枚' );
 INSERT INTO Menu.M532110000031 VALUES ( '421100009', NULL, NULL );
 
+INSERT INTO Menu.M511410000016 VALUES ( '510000005', '65', 'g' );
