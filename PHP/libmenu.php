@@ -155,7 +155,7 @@ class Menu extends Foodstuff{
     }
     while( ( $record = mysqli_fetch_assoc( $result ) ) != NULL ){
       $price = $this->GetFoodstuffPrice( $_UserID, $record["Foodstuff_ID"] );
-      $sum += ($price[0]*$record["Amount"]);
+      $sum += ($price*$record["Amount"]);
     }
 
     return $sum;

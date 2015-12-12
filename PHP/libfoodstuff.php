@@ -150,7 +150,7 @@ class Foodstuff extends db{
       }
     }
     if( $record != NULL ){
-      $price = $record["Price"] / $record["Mount"];
+      $price = (int)($record["Price"] / $record["Mount"]);
     } else{
       $list = array( 0 => $_FoodstuffID, );
       $list = $this->_city->SerchPrice( 2.0, $_UserID, $list );
